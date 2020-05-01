@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fortnite Configuration Editor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+<body style="background-color: black;">
+  <nav>
+    <div class="nav-wrapper indigo darken-4">
+      <a class="brand-logo center">Fortnite Config Editor</a>   
+<br>
+    </div>
+  </nav>
+  <div class="container" style="color:white;">
+    <center>
+  <div class="row">
+  <div class="col s4">
+    
+    <h4>Width</h4>
+  
+    <input type="number" placeholder="500">
+  </div>
+  <div class="col s4">
+    
+    <h4>Height</h4>
+    
+    <input type="number" placeholder="500">
+    
+  </div>
+  <div class="col s4"><h4>FPS</h4>
+ 
+  <input type="number" placeholder="50">
+</div>
+</center>
+</div>
+</div>
+  <ul></ul>
+  <center>
+  <p style="color:white;">&copy; Laphatize & SecretlyGod 2020</p>
+</center>
+  <script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    const ul = document.querySelector('ul');
+
+    ipcRenderer.on('item:add', function(e, item){
+      ul.className = 'collection';
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      const itemText = document.createTextNode(item);
+
+      li.appendChild(itemText);
+      ul.appendChild(li);
+    });
+
+    ipcRenderer.on('item:clear', function(){
+      ul.className = '';
+      ul.innerHTML = '';
+    });
+
+    ul.addEventListener('dblclick', removeItem);
+
+    function removeItem(e){
+      event.target.remove();
+      if(ul.children.length == 0){
+        ul.className = '';
+      }
+    }
+  </script>
+</body>
+</html>
